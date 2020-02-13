@@ -122,6 +122,7 @@
 		}, 10);
 
 		if( mq == 'mobile' ) {
+			document.getElementById('nav').hidden = true;
 			self.modal.addEventListener('transitionend', function cb(){
 				self.animating = false;
 				self.modal.removeEventListener('transitionend', cb);
@@ -184,6 +185,7 @@
 				UtilPlanning.removeClass(item, 'cd-schedule__event--selected');
 				self.animating = false;
 				self.modal.removeEventListener('transitionend', cb);
+				document.getElementById('nav').hidden = false;
 			});
 		} else {
 			var eventPosition = target.getBoundingClientRect(),
