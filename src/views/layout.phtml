@@ -29,13 +29,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?php
                     if (isset($_SESSION['login']))
-                        echo $router->pathFor('planning');
+                        echo $router->pathFor('planning',['semaine' => 'A']);
                     else
                         echo $router->pathFor('login');
                     ?>">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $router->pathFor('planning') ?>">Planning</a>
+                    <a class="nav-link" href="<?= $router->pathFor('planning',['semaine' => 'A']) ?>">Planning</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $router->pathFor('members') ?>">Membres</a>

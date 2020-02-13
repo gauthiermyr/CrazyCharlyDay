@@ -302,7 +302,8 @@
 	      }
 	    }
 		};
-		httpRequest.open('GET', "planning" + '/creneau/1');
+		console.log(httpRequest);
+		httpRequest.open('GET', "" + 'creneau/'+content);
 		//console.log(httpRequest);
     httpRequest.send();
 	};
