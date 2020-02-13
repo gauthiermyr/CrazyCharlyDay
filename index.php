@@ -132,6 +132,11 @@ $app->get('/gestion[/]', function (Request $request, Response $response, array $
     return $controller->displayUsersUpdate($request, $response, $args);
 })->setName('gestion');
 
+$app->get('/compte/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->getCompteById($request, $response, $args);
+})->setName('accountupdate');
+
 /**
  * Run of Slim
  */

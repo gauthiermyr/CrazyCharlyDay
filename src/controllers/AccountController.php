@@ -70,24 +70,41 @@ class AccountController extends Controller {
         if (isset($_SESSION['login'])) {
             $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
             $args['account'] = $account;
+            $args['user'] = $account->user;
         }
         $args['title'] = 'Grande Épicerie Générale - Compte';
         $this->container->view->render($response, 'compte.phtml', $args);
         return $response;
     }
 
+    public function getCompteById(Request $request, Response $response, array $args) {
+        if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) {
+            $account = Account::where('idCompte', '=', $args['id'])->first();
+            $args['account'] = $account;
+            $args['user'] = $account->user;
+        }
+        $args['title'] = 'Grande Épicerie Générale - Modifier Compte';
+        $this->container->view->render($response, 'compte.phtml', $args);
+        return $response;
+    }
+
     public function postEditAccount(Request $request, Response $response, array $args) {
-        $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
+        $account = Account::where('user', '=', $_POST['username'])->first();
+        var_dump($_POST);
+        exit(0);
 
         if ($account->email != $_POST['email'] || $account->prenom != $_POST['prenom'] || $account->nom != $_POST['nom']) {
             $account->email = trim($_POST['email']);
             $account->prenom = trim($_POST['prenom']);
             $account->nom = trim($_POST['nom']);
             $account->save();
-
+        if($_POST['username'] != $_SESSION['login']['username']){
+            unset($_POST['username']);
+        }else{
             unset($_SESSION['login']);
             $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user, 'prenom' => $account->prenom, 'nom' => $account->nom];
             $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Les modifications ont bien été enregistrées.</div>';
+        }
         }
         return $this->redirect($response, 'account');
     }

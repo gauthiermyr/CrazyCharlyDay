@@ -5,17 +5,16 @@
             <tr>
                 <div class="card">
                     <div class="card-body">
+                        <td scope="row">
+                            <a class="form-group">
+                                <a role="button" href="<?= $router->pathFor('accountupdate',['id'=>$account->idCompte]) ?>" class="btn btn-warning" >Modifier le compte</a>
+                            </a>
+                        </td>
                         <td scope="row"><?= $account->nom ?></td>
                         <td scope="row"><?= $account->prenom ?></td>
                         <td scope="row">(<?= $account->email ?>)</td>
                     </div>
-                </div>
-
-                <br>
-            </tr>
         <?php endforeach; ?>
-
-
 
 
 <?php else: ?>
