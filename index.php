@@ -87,6 +87,16 @@ $app->get('/creneau/{id:[0-9]+}[/]', function (Request $request, Response $respo
     return $controller->getCreneau($request, $response, $args);
 })->setName('getCreneau');
 
+$app->get('/inscription[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->getInscription($request, $response, $args);
+})->setName('inscription');
+
+$app->post('/inscription[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postInscription($request, $response, $args);
+})->setName('inscription');
+
 /**
  * Run of Slim
  */

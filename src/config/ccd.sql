@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
   `idCompte` int(10) NOT NULL AUTO_INCREMENT,
   `user` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hash` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hash` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
