@@ -55,8 +55,8 @@ class AccountController extends Controller {
 
         $account->save();
 
-        $_SESSION['login'] = serialize(['email' => $account->email, 'username' => $account->user,
-            'prenom' => $account->prenom, 'nom' => $account->nom]);
+        $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user,
+            'prenom' => $account->prenom, 'nom' => $account->nom];
 
         return $this->redirect($response, 'planning');
     }
@@ -64,5 +64,31 @@ class AccountController extends Controller {
     public function getLogout(Request $request, Response $response, array $args) {
         unset($_SESSION['login']);
         return $this->redirect($response, 'login');
+    }
+
+    public function getCompte(Request $request, Response $response, array $args) {
+        if (isset($_SESSION['login'])) {
+            $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
+            $args['account'] = $account;
+        }
+        $args['title'] = 'Grande Épicerie Générale - Compte';
+        $this->container->view->render($response, 'compte.phtml', $args);
+        return $response;
+    }
+
+    public function postEditAccount(Request $request, Response $response, array $args) {
+        $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
+
+        if ($account->email != $_POST['email'] || $account->prenom != $_POST['prenom'] || $account->nom != $_POST['nom']) {
+            $account->email = trim($_POST['email']);
+            $account->prenom = trim($_POST['prenom']);
+            $account->nom = trim($_POST['nom']);
+            $account->save();
+
+            unset($_SESSION['login']);
+            $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user, 'prenom' => $account->prenom, 'nom' => $account->nom];
+            $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Les modifications ont bien été enregistrées.</div>';
+        }
+        return $this->redirect($response, 'account');
     }
 }

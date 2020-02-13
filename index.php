@@ -108,6 +108,26 @@ $app->get('/membres[/]', function (Request $request, Response $response, array $
     $this->view->render($response, 'members.phtml', ['title' => 'Grande Épicerie Générale - Membres']);
 })->setName('members');
 
+$app->get('/compte', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->getCompte($request, $response, $args);
+})->setName('account');
+
+$app->post('/editAccount', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postEditAccount($request, $response, $args);
+})->setName('editAccount');
+
+$app->post('/changePassword', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postChangePassword($request, $response, $args);
+})->setName('changePassword');
+
+$app->post('/deleteAccount', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postDeleteAccount($request, $response, $args);
+})->setName('deleteAccount');
+
 /**
  * Run of Slim
  */
