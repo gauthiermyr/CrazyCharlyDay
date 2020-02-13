@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
   `idCompte` int(10) NOT NULL AUTO_INCREMENT,
   `user` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hash` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hash` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 INSERT INTO `account` (`idCompte`, `user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
 (1, 'admin', 'admin', 'admin@gmail.com', 'adminNom', 'adminPrenom', 'default');
+
 
 -- --------------------------------------------------------
 
@@ -154,3 +155,46 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Valeurs tables
+--
+
+INSERT INTO `account` (`user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
+('loick', '$2y$10$fVKZ9/.D5twEDcZOqNLiCOnKxGwGoRNXDGHdEVGJ7UpDH6gk6S6g.', 'nosal.loick@gmail.com', 'nosal', 'loick', 'default'),
+('julien', '$2y$10$wESTa5YmkHmC6JAfhVb7zehXB3L78tLsyn5AInWqa/WT6qAXJ5RYK', 'juliennoel9@gmail.com', 'noel', 'julien', 'default'),
+('louis', '$2y$10$wSw1zOhf3pwP24eN05cDNeKJEvdnDFck7121.di5XI0oBAsZwpA36', 'louis.demange.m@gmail.com', 'demange', 'louis', 'default'),
+('gauthier', '$2y$10$rts0zZThndNbkObCSAHWheIoAiVopz2u3aDwDvIge9DMshK5WJSYe', 'gauthier.mayer5@gmail.com', 'noel', 'julien', 'default'),
+('sacha', '$2y$10$2p.64mTqjPs.FIUH9DgBZeg5OxUG3Xmr60d1YLmf.uC5UnUe0AveO', 'sacha.thommet5@orange.fr', 'noel', 'julien', 'default');
+
+
+INSERT INTO `creneau` (id, cycle, semaine, jour, heureD, heureF) VALUES
+(1, 0, 'A', 1, 8, 11);
+INSERT INTO `creneau` (cycle, semaine, jour, heureD, heureF) VALUES
+(0, 'A', 1, 14, 17),
+(0, 'A', 3, 11, 14),
+(0, 'B', 1, 8, 11),
+(0, 'B', 2, 8, 11),
+(0, 'B', 4, 12, 15),
+(0, 'C', 1, 8, 11),
+(0, 'C', 1, 9, 12),
+(0, 'C', 6, 13, 16),
+(0, 'D', 1, 8, 11),
+(0, 'D', 3, 16, 19),
+(0, 'D', 4, 8, 11);
+
+INSERT INTO `cycle` (`numero`) VALUES
+(1),
+(2),
+(3),
+(4);
+
+INSERT INTO `role` (`libelle`) VALUES
+('livreur');
+
+INSERT INTO `poste` (`id`, `creneau`, `idCompte`, `role`) VALUES
+(1, 1, null, 'caissier'),
+(2,1,null,'livreur'),
+(3,1,null,'vendeur');
+
