@@ -51,9 +51,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$router->pathFor('account')?>">Mon compte</a>
                     </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?=$router->pathFor('inscription')?>">Inscription d'un membre</a>
-                        </li>
+                    <?php if ($_SESSION['login']['admin']==1) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gestion des comptes
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" >Gestion des comptes</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?=$router->pathFor('inscription')?>">Inscription d'un membre</a>
+                            <a class="dropdown-item" >Modification d'un membre</a>
+                        </div>
+                    </li>
+                    <?php endif; ?>
                 <?php else : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$router->pathFor('login')?>">Connexion</a>
