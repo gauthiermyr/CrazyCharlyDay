@@ -64,7 +64,7 @@ class AccountController extends Controller
         $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user,
             'prenom' => $account->prenom, 'nom' => $account->nom];
 
-        return $this->redirect($response, 'planning');
+        return $this->redirect($response, 'planning', ['semaine'=>'A']);
     }
 
     public function getLogout(Request $request, Response $response, array $args)
@@ -97,7 +97,8 @@ class AccountController extends Controller
         return $response;
     }
 
-    public function postEditAccount(Request $request, Response $response, array $args) {
+    public function postEditAccount(Request $request, Response $response, array $args)
+    {
         $account = Account::where('idCompte', '=', $args['id'])->first();
         $admin = ($account->nom != $_SESSION['login']['nom']) ? true : false;
 
@@ -116,7 +117,8 @@ class AccountController extends Controller
         return $this->redirect($response, 'account');
     }
 
-    public function postChangePassword(Request $request, Response $response, array $args) {
+    public function postChangePassword(Request $request, Response $response, array $args)
+    {
         $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
         if (password_verify($_POST['oldPassword'], $account->hash)) {
             $account->hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
