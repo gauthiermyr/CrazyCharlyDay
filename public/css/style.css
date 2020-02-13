@@ -3,10 +3,14 @@
     background-color: cornflowerblue;
 
 }
-
+.colorfoot{
+    background-color: #7fb5ed;
+}
 .titre{
     text-decoration: underline;
 }
+
+
 
 @media (min-width: 992px) {
     .table-center {
