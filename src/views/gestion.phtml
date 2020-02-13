@@ -1,20 +1,22 @@
 <?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
     <h5 align="center"> <strong>Choisissez le compte à modifier</strong></h5>
 
-        <?php foreach ($accounts as $account) : ?>
-            <tr>
-                <div class="card">
-                    <div class="card-body">
-                        <td scope="row">
-                            <a class="form-group">
-                                <a role="button" href="<?= $router->pathFor('accountupdate',['id'=>$account->idCompte]) ?>" class="btn btn-warning" >Modifier le compte</a>
-                            </a>
-                        </td>
-                        <td scope="row"><?= $account->nom ?></td>
-                        <td scope="row"><?= $account->prenom ?></td>
-                        <td scope="row">(<?= $account->email ?>)</td>
-                    </div>
-        <?php endforeach; ?>
+    <?php foreach ($accounts as $account) : ?>
+        <tr>
+            <div class="card">
+                <div class="card-body">
+                    <td scope="row">
+                        <a class="form-group">
+                            <a role="button" href="<?= $router->pathFor('accountupdate',['id'=>$account->idCompte]) ?>" class="btn btn-warning" >Modifier le compte</a>
+                        </a>
+                    </td>
+                    <td scope="row"><?= $account->nom ?></td>
+                    <td scope="row"><?= $account->prenom ?></td>
+                    <td scope="row">(<?= $account->email ?>)</td>
+                </div>
+            </div>
+        </tr>
+    <?php endforeach; ?>
 
 
 <?php else: ?>
