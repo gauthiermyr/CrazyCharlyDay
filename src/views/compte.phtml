@@ -2,58 +2,68 @@
     <div class="modal-content">
         <div class="modal-header">
             <?php
-                if ($account->email == $_SESSION['login']['email'])
-                    echo '<h5 class="modal-title">Mon compte</h5>';
-                else
-                    echo "<h5 class=\"modal-title\">Compte de $account->prenom</h5>";
+            if ($account->email == $_SESSION['login']['email'])
+                echo '<h5 class="modal-title">Mon compte</h5>';
+            else
+                echo "<h5 class=\"modal-title\">Compte de $account->prenom</h5>";
             ?>
-            <img src="<?=$rootUri . '/public/images/user/' . $account->img  .'.jpg'?>" width="40" height="40">
+            <img src="<?= $rootUri . '/public/images/user/' . $account->img . '.jpg' ?>" width="40" height="40">
         </div>
-        <form method="POST" action="<?=$router->pathFor('editAccount', ['id'=>$account->idCompte])?>">
+        <form method="POST" action="<?= $router->pathFor('editAccount', ['id' => $account->idCompte]) ?>">
             <div class="modal-body">
                 <?php if (isset($_SESSION['redirect']['msg'])) {
                     echo $_SESSION['redirect']['msg'];
                     unset($_SESSION['redirect']['msg']);
                 } ?>
-                <?php if (isset($_SESSION['login']['admin']) && ($_SESSION['login']['admin']==1) && $account->email == $_SESSION['login']['email']) : ?>
-                <div class="form-group">
-                    <strong><label for="prenom">Vous êtes sur un compte administrateur.</label></strong>
-                </div>
+                <?php if (isset($_SESSION['login']['admin']) && ($_SESSION['login']['admin'] == 1) && $account->email == $_SESSION['login']['email']) : ?>
+                    <div class="form-group">
+                        <strong><label for="prenom">Vous êtes sur un compte administrateur.</label></strong>
+                    </div>
                 <?php endif; ?>
                 <?php if ($account->email != $_SESSION['login']['email']) : ?>
                     <div class="form-group">
-                        <strong><label for="prenom">Vous êtes en train de modifier un compte d'un participant.</label></strong>
+                        <strong><label for="prenom">Vous êtes en train de modifier un compte d'un
+                                participant.</label></strong>
                     </div>
                 <?php endif; ?>
                 <div class="form-group">
                     <label for="prenom">Prénom</label>
-                    <input required type="text" name="prenom" class="form-control" placeholder="Prénom" id="prenom" value="<?= $account->prenom ?>">
+                    <input required type="text" name="prenom" class="form-control" placeholder="Prénom" id="prenom"
+                           value="<?= $account->prenom ?>">
                 </div>
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input required type="text" name="nom" class="form-control" placeholder="Nom" id="nom" value="<?= $account->nom ?>">
+                    <input required type="text" name="nom" class="form-control" placeholder="Nom" id="nom"
+                           value="<?= $account->nom ?>">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input required type="email" name="email" class="form-control" placeholder="Email" id="email" value="<?= $account->email ?>">
+                    <input required type="email" name="email" class="form-control" placeholder="Email" id="email"
+                           value="<?= $account->email ?>">
                 </div>
                 <div class="form-group">
-                    <img src="<?=$rootUri . '/public/images/user/' . $account->img  .'.jpg'?>" width="100" height="100">
+                    <img src="<?= $rootUri . '/public/images/user/' . $account->img . '.jpg' ?>" width="100"
+                         height="100">
                     <label for="image">Image de profile</label>
                 </div>
 
                 <div class="form-group">
                     <!-- Trigger modal password -->
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalPassword">Changer mot de passe</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalPassword">
+                        Changer mot de passe
+                    </button>
                 </div>
 
                 <div class="form-group">
                     <!-- Trigger modal suppression compte -->
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAccount">Supprimer mon compte</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAccount">
+                        Supprimer mon compte
+                    </button>
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary" href="<?= $router->pathFor('planning', ["semaine"=>'A'])?>" role="button">Retour</a>
+                <a class="btn btn-secondary" href="<?= $router->pathFor('planning', ["semaine" => 'A']) ?>"
+                   role="button">Retour</a>
                 <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
             </div>
         </form>
@@ -72,34 +82,50 @@
                         <div class="form-group">
                             <label for="oldPassword">Ancien mot de passe</label>
                             <div class="input-group">
-                                <input required type="password" name="oldPassword" class="form-control" placeholder="Ancien mot de passe" id="oldPassword">
+                                <input required type="password" name="oldPassword" class="form-control"
+                                       placeholder="Ancien mot de passe" id="oldPassword">
                                 <div class="input-group-append">
-                                    <button class="input-group-text" onclick="toggleVisibility('oldPassword')" type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i></button>
+                                    <button class="input-group-text" onclick="toggleVisibility('oldPassword')"
+                                            type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="newPassword">Mot de passe</label>
                             <div class="input-group">
-                                <input required type="password" name="newPassword" class="form-control" placeholder="Nouveau mot de passe (minimum 8 caractères)" id="newPassword" minlength="8" maxlength="50">
+                                <input required type="password" name="newPassword" class="form-control"
+                                       placeholder="Nouveau mot de passe (minimum 8 caractères)" id="newPassword"
+                                       minlength="8" maxlength="50">
                                 <div class="input-group-append">
-                                    <button class="input-group-text" onclick="toggleVisibility('newPassword')" type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i></button>
+                                    <button class="input-group-text" onclick="toggleVisibility('newPassword')"
+                                            type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <meter value="0" min="-0.2" max="4" id="password-strength-meter" style="display: none"></meter>
-                            <div class="font-weight-bold" id="password-security" style="display: none">Niveau de sécurité : </div>
+                            <meter value="0" min="-0.2" max="4" id="password-strength-meter"
+                                   style="display: none"></meter>
+                            <div class="font-weight-bold" id="password-security" style="display: none">Niveau de
+                                sécurité :
+                            </div>
                             <div class="invalid-feedback" id="passwordErr">Invalide</div>
                         </div>
                         <div class="form-group">
                             <label for="confirmPassWord">Confirmez votre mot de passe</label>
                             <div class="input-group">
-                                <input required type="password" name="confirmPassWord" class="form-control" placeholder="Confirmez votre mot de passe" id="confirmPassWord" minlength="8" maxlength="50">
+                                <input required type="password" name="confirmPassWord" class="form-control"
+                                       placeholder="Confirmez votre mot de passe" id="confirmPassWord" minlength="8"
+                                       maxlength="50">
                                 <div class="input-group-append">
-                                    <button class="input-group-text" onclick="toggleVisibility('confirmPassWord')" type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i></button>
+                                    <button class="input-group-text" onclick="toggleVisibility('confirmPassWord')"
+                                            type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div id="confirmPassWordErr" class="alert alert-danger" style="display: none">Les deux mots de passe ne correspondent pas.</div>
+                        <div id="confirmPassWordErr" class="alert alert-danger" style="display: none">Les deux mots de
+                            passe ne correspondent pas.
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
@@ -126,9 +152,12 @@
                         <div class="form-group">
                             <label for="password">Mot de passe</label>
                             <div class="input-group">
-                                <input required type="password" name="password" class="form-control" placeholder="Mot de passe" id="password">
+                                <input required type="password" name="password" class="form-control"
+                                       placeholder="Mot de passe" id="password">
                                 <div class="input-group-append">
-                                    <button class="input-group-text" onclick="toggleVisibility('password')" type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i></button>
+                                    <button class="input-group-text" onclick="toggleVisibility('password')"
+                                            type="button" style="outline: none" tabindex="-1"><i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -157,13 +186,13 @@
     let meter = document.getElementById('password-strength-meter');
     let security = document.getElementById('password-security');
     const strength = {
-        0: {text : 'Très faible', color : 'darkred'},
-        1: {text : 'Faible', color : 'orangered'},
-        2: {text : 'Moyen', color : 'orange'},
-        3: {text : 'Fort', color : 'yellowgreen'},
-        4: {text : 'Très fort', color : 'limegreen'}
+        0: {text: 'Très faible', color: 'darkred'},
+        1: {text: 'Faible', color: 'orangered'},
+        2: {text: 'Moyen', color: 'orange'},
+        3: {text: 'Fort', color: 'yellowgreen'},
+        4: {text: 'Très fort', color: 'limegreen'}
     };
-    password.addEventListener('input', function() {
+    password.addEventListener('input', function () {
         clearTimeout(timer5);
         meter.style.display = this.value ? "inline" : "none";
         meter.value = zxcvbn(this.value).score;
@@ -179,7 +208,7 @@
         timer5 = setTimeout(checkConfirm, finishTyping);
     });
 
-    confirm.addEventListener('input', function() {
+    confirm.addEventListener('input', function () {
         clearTimeout(timer6);
         password.className = 'form-control';
         password.setCustomValidity('');
