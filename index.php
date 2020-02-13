@@ -127,7 +127,7 @@ $app->post('/changePassword[/]', function (Request $request, Response $response,
     return $controller->postChangePassword($request, $response, $args);
 })->setName('changePassword');
 
-$app->post('/deleteAccount[/]', function (Request $request, Response $response, array $args) {
+$app->post('/deleteAccount/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->postDeleteAccount($request, $response, $args);
 })->setName('deleteAccount');

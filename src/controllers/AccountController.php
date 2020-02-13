@@ -135,10 +135,12 @@ class AccountController extends Controller
 
     public function postDeleteAccount(Request $request, Response $response, array $args)
     {
-        $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
-        if (password_verify($_POST['password'], $account->hash)) {
+        $account = Account::where('idCompte', '=', $args['id'])->first();
+        if (password_verify($_POST['password'], $account->hash) || $account->nom != $_SESSION['login']['nom']) {
             $account->delete();
-            unset($_SESSION['login']);
+
+            if ($account->nom == $_SESSION['login']['nom'])
+                unset($_SESSION['login']);
             $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Votre compte a bien été supprimé.</div>';
             return $this->redirect($response, 'login');
         } else {
