@@ -151,6 +151,16 @@ $app->get('/compte/{id:[0-9]+}[/]', function (Request $request, Response $respon
     return $controller->getCompteById($request, $response, $args);
 })->setName('accountupdate');
 
+$app->get('/inscrire/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->inscrire($request, $response, $args);
+})->setName('inscrire');
+
+$app->get('/annuler/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->annuler($request, $response, $args);
+})->setName('annuler');
+
 /**
  * Run of Slim
  */

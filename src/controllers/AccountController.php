@@ -26,7 +26,7 @@ class AccountController extends Controller
 
         if (isset($account) and password_verify($_POST['password'], $account->hash)) {
             $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user,
-                'prenom' => $account->prenom, 'nom' => $account->nom, 'admin' => $account->admin];
+                'prenom' => $account->prenom, 'nom' => $account->nom, 'admin' => $account->admin, 'id' => $account->idCompte];
             return $this->redirect($response, 'account');
         } else {
             $_SESSION['redirect']['msg'] = '<div class="alert alert-danger">Nom d\'utilisateur ou mot de passe incorrect, réessayez.</div>';

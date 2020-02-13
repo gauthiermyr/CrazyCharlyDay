@@ -1,6 +1,7 @@
 <?php
 
 namespace crazycharlyday\controllers;
+use crazycharlyday\models\Account;
 use crazycharlyday\models\Creneau;
 use crazycharlyday\models\Poste;
 use crazycharlyday\models\Role;
@@ -31,6 +32,32 @@ class PlanningController extends Controller{
         $this->container->view->render($response, 'planning.phtml', $args);
     }
 
+    public function inscrire(Request $request, Response $response, array $args){
+        if(isset($_SESSION['login'])){
+            $poste = Poste::where('id','=',$args['id'])->first();
+            $poste->idCompte = $_SESSION['login']['id'];
+            try{
+                $poste->save();
+            }
+            catch (\Exception $e){}
+
+        }
+        return $this->redirect($response, 'planning',['semaine' => 'A']);
+    }
+
+    public function annuler(Request $request, Response $response, array $args){
+        if(isset($_SESSION['login'])){
+            $poste = Poste::where('id','=',$args['id'])->first();
+            $poste->idCompte = null;
+            try{
+                $poste->save();
+            }
+            catch (\Exception $e){}
+
+        }
+        return $this->redirect($response, 'planning',['semaine' => 'A']);
+    }
+
     public function getCreneau(Request $request, Response $response, array $args){
         //$creneau = Creneau::where('id','=',$args['id'])->first();
         $postes = Poste::where('creneau','=',$args['id'])->get();
@@ -51,12 +78,19 @@ class PlanningController extends Controller{
 END;
         foreach ($postes as $poste) {
             $role = $poste->role;
-            $idcompte = $poste->idCompte;
-            if ($idcompte == null) {
-                $text = "S'inscrire";
-            } else {
-                $text = $idcompte;
+            $text = $poste->idCompte;
+            $link = $request->getUri()->getBasePath() . '/inscrire/' . $poste->id;
+            if ($poste->idCompte == null) {
+                $text = "<a class=\"btn btn-primary\" href=\"" . $link . "\" role=\"button\">S'inscrire</a>";
             }
+            elseif (isset($_SESSION['login']) && $_SESSION['login']['id'] == $poste->idCompte){
+                $link = $request->getUri()->getBasePath() . '/annuler/' . $poste->id;
+                $text = "<a class=\"btn btn-primary\" href=\"" . $link . "\" role=\"button\">Annuler</a>";
+            }
+            else {
+                $text = Account::where('idCompte','=',$poste->idCompte)->first()->prenom;
+            }
+
             echo
             <<<END
             <tr>
