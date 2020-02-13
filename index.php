@@ -3,6 +3,8 @@
 use Slim\Views\PhpRenderer;
 use Slim\Http\Response;
 use Slim\Http\Request;
+use crazycharlyday\controllers\AccountController;
+
 
 require_once 'vendor/autoload.php';
 
@@ -65,14 +67,19 @@ $container['notFoundHandler'] = function ($container) {
  * Main pages
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    $this->view->render($response, 'home.phtml', ['title' => 'Grande Épicerie Générale - Accueil']);
-})->setName('home');
+    $controller = new AccountController($this);
+    return $controller->getLogin($request, $response, $args);
+})->setName('login');
 
+$app->post('/', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postLogin($request, $response, $args);
+});
 
 $app->get('/planning[/]', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->displayPlanning($request, $response, $args);
-})->setName('register');
+})->setName('planning');
 
 
 
