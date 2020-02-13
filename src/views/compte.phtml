@@ -3,6 +3,13 @@
         <div class="modal-header">
             <h5 class="modal-title">Mon compte</h5>
             <img src="<?=$rootUri . '/../public/images/user/' . $account->img  .'.jpg'?>" width="40" height="40">
+            <?php
+                if ($account->email == $_SESSION['login']['email'])
+                    echo '<h5 class="modal-title">Mon compte</h5>';
+                else
+                    echo "<h5 class=\"modal-title\">Compte de $account->prenom</h5>";
+            ?>
+            <img src="<?=$rootUri . '/../public/images/user/' . $account->img  .'.jpg'?>" width="40" height="40">
         </div>
         <form method="POST" action="<?=$router->pathFor('editAccount', ['id'=>$account->idCompte])?>">
             <div class="modal-body">
