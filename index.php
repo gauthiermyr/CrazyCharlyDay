@@ -127,6 +127,11 @@ $app->post('/deleteAccount', function (Request $request, Response $response, arr
     return $controller->postDeleteAccount($request, $response, $args);
 })->setName('deleteAccount');
 
+$app->get('/gestion[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->displayUsersUpdate($request, $response, $args);
+})->setName('gestion');
+
 /**
  * Run of Slim
  */

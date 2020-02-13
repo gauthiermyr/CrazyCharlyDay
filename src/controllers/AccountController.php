@@ -119,4 +119,12 @@ class AccountController extends Controller {
             return $this->redirect($response, 'inscription');
         }
     }
+
+    public function displayUsersUpdate(Request $request, Response $response, array $args){
+        $accounts = Account::select('*')->get();
+        $args['accounts'] = $accounts;
+        $this->container->view->render($response, 'gestion.phtml', $args);
+        return $response;
+    }
+
 }

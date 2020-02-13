@@ -1,0 +1,23 @@
+<?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
+    <h5 align="center"> <strong>Choisissez le compte à modifier</strong></h5>
+
+        <?php foreach ($accounts as $account) : ?>
+            <tr>
+                <div class="card">
+                    <div class="card-body">
+                        <td scope="row"><?= $account->nom ?></td>
+                        <td scope="row"><?= $account->prenom ?></td>
+                        <td scope="row">(<?= $account->email ?>)</td>
+                    </div>
+                </div>
+
+                <br>
+            </tr>
+        <?php endforeach; ?>
+
+
+
+
+<?php else: ?>
+    <h5 align="center"> <strong>Il faut être connecté et être administrateur pour modifier les comptes des utilisateurs.</strong></h5>
+<?php endif; ?>
