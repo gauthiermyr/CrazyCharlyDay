@@ -1,5 +1,5 @@
 <?php
-namespace mywishlist\config;
+namespace crazycharlyday\config;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class Database {

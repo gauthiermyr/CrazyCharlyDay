@@ -1,6 +1,6 @@
 driver=mysql
 host=localhost:port
-database=mywishlist
+database=ccd
 username=root
 password=****
 charset=utf8mb4

@@ -1,5 +1,5 @@
 {
-  "name" : "mywishlist/app",
+  "name" : "crazycharlyday/app",
   "type" : "project",
   "authors": [
     {
@@ -30,7 +30,7 @@
 
   "autoload": {
     "psr-4": {
-      "CrazyCharlyDay\\" : "src/"
+      "crazycharlyday\\" : "src/"
     }
   }
 }
