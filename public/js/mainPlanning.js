@@ -5,10 +5,10 @@
 		this.timelineItems = this.element.getElementsByClassName('cd-schedule__timeline')[0].getElementsByTagName('li');
 		this.timelineStart = getScheduleTimestamp(this.timelineItems[0].textContent);
 		this.timelineUnitDuration = getScheduleTimestamp(this.timelineItems[1].textContent) - getScheduleTimestamp(this.timelineItems[0].textContent);
-
+		
 		this.topInfoElement = this.element.getElementsByClassName('cd-schedule__top-info')[0];
 		this.singleEvents = this.element.getElementsByClassName('cd-schedule__event');
-
+		
 		this.modal = this.element.getElementsByClassName('cd-schedule-modal')[0];
 		this.modalHeader = this.element.getElementsByClassName('cd-schedule-modal__header')[0];
 		this.modalHeaderBg = this.element.getElementsByClassName('cd-schedule-modal__header-bg')[0];
@@ -23,7 +23,7 @@
 		this.modalMaxHeight = 480;
 
 		this.animating = false;
-		this.supportAnimation = Util.cssSupports('transition');
+		this.supportAnimation = UtilPlanning.cssSupports('transition');
 
 		this.initSchedule();
 	};
@@ -36,23 +36,23 @@
 	ScheduleTemplate.prototype.scheduleReset = function() {
 		// according to the mq value, init the style of the template
 		var mq = this.mq(),
-			loaded = Util.hasClass(this.element, 'js-schedule-loaded'),
-			modalOpen = Util.hasClass(this.modal, 'cd-schedule-modal--open');
+			loaded = UtilPlanning.hasClass(this.element, 'js-schedule-loaded'),
+			modalOpen = UtilPlanning.hasClass(this.modal, 'cd-schedule-modal--open');
 		if( mq == 'desktop' && !loaded ) {
-			Util.addClass(this.element, 'js-schedule-loaded');
+			UtilPlanning.addClass(this.element, 'js-schedule-loaded');
 			this.placeEvents();
 			modalOpen && this.checkEventModal(modalOpen);
 		} else if( mq == 'mobile' && loaded) {
 			//in this case you are on a mobile version (first load or resize from desktop)
-			Util.removeClass(this.element, 'cd-schedule--loading js-schedule-loaded');
+			UtilPlanning.removeClass(this.element, 'cd-schedule--loading js-schedule-loaded');
 			this.resetEventsStyle();
 			modalOpen && this.checkEventModal();
 		} else if( mq == 'desktop' && modalOpen ) {
 			//on a mobile version with modal open - need to resize/move modal window
 			this.checkEventModal(modalOpen);
-			Util.removeClass(this.element, 'cd-schedule--loading');
+			UtilPlanning.removeClass(this.element, 'cd-schedule--loading');
 		} else {
-			Util.removeClass(this.element, 'cd-schedule--loading');
+			UtilPlanning.removeClass(this.element, 'cd-schedule--loading');
 		}
 	};
 
@@ -78,7 +78,7 @@
 			this.singleEvents[i].setAttribute('style', 'top: '+(eventTop-1)+'px; height: '+(eventHeight +1)+'px');
 		}
 
-		Util.removeClass(this.element, 'cd-schedule--loading');
+		UtilPlanning.removeClass(this.element, 'cd-schedule--loading');
 	};
 
 	ScheduleTemplate.prototype.initEvents = function() {
@@ -102,9 +102,6 @@
 	};
 
 	ScheduleTemplate.prototype.openModal = function(target) {
-		document.getElementById("nav").hidden = true;
-
-
 		var self = this;
 		var mq = self.mq();
 		this.animating = true;
@@ -117,11 +114,11 @@
 		//update event content
 		this.loadEventContent(target.getAttribute('data-content'));
 
-		Util.addClass(this.modal, 'cd-schedule-modal--open');
-
+		UtilPlanning.addClass(this.modal, 'cd-schedule-modal--open');
+		
 		setTimeout(function(){
 			//fixes a flash when an event is selected - desktop version only
-			Util.addClass(target.closest('li'), 'cd-schedule__event--selected');
+			UtilPlanning.addClass(target.closest('li'), 'cd-schedule__event--selected');
 		}, 10);
 
 		if( mq == 'mobile' ) {
@@ -144,7 +141,7 @@
 
 			var modalTranslateX = parseInt((windowWidth - modalWidth)/2 - eventLeft),
 				modalTranslateY = parseInt((windowHeight - modalHeight)/2 - eventTop);
-
+			
 			var HeaderBgScaleY = modalHeight/eventHeight,
 				BodyBgScaleX = (modalWidth - eventWidth);
 
@@ -158,11 +155,11 @@
 			self.modalBodyBg.setAttribute('style', 'height:'+eventHeight+'px; width: 1px; transform: scaleY('+HeaderBgScaleY+') scaleX('+BodyBgScaleX+')');
 			//change modal modalHeaderBg height/width and scale it
 			self.modalHeaderBg.setAttribute('style', 'height: '+eventHeight+'px; width: '+eventWidth+'px; transform: scaleY('+HeaderBgScaleY+')');
-
+			
 			self.modalHeaderBg.addEventListener('transitionend', function cb(){
 				//wait for the  end of the modalHeaderBg transformation and show the modal content
 				self.animating = false;
-				Util.addClass(self.modal, 'cd-schedule-modal--animation-completed');
+				UtilPlanning.addClass(self.modal, 'cd-schedule-modal--animation-completed');
 				self.modalHeaderBg.removeEventListener('transitionend', cb);
 			});
 		}
@@ -172,8 +169,6 @@
 	};
 
 	ScheduleTemplate.prototype.closeModal = function() {
-		document.getElementById("nav").hidden = false;
-
 		var self = this;
 		var mq = self.mq();
 
@@ -183,10 +178,10 @@
 		this.animating = true;
 
 		if( mq == 'mobile' ) {
-			Util.removeClass(this.modal, 'cd-schedule-modal--open');
+			UtilPlanning.removeClass(this.modal, 'cd-schedule-modal--open');
 			self.modal.addEventListener('transitionend', function cb(){
-				Util.removeClass(self.modal, 'cd-schedule-modal--content-loaded');
-				Util.removeClass(item, 'cd-schedule__event--selected');
+				UtilPlanning.removeClass(self.modal, 'cd-schedule-modal--content-loaded');
+				UtilPlanning.removeClass(item, 'cd-schedule__event--selected');
 				self.animating = false;
 				self.modal.removeEventListener('transitionend', cb);
 			});
@@ -204,7 +199,7 @@
 			var modalTranslateX = eventLeft - modalLeft,
 				modalTranslateY = eventTop - modalTop;
 
-			Util.removeClass(this.modal, 'cd-schedule-modal--open cd-schedule-modal--animation-completed');
+			UtilPlanning.removeClass(this.modal, 'cd-schedule-modal--open cd-schedule-modal--animation-completed');
 
 			//change modal width/height and translate it
 			self.modal.style.width = eventWidth+'px';self.modal.style.height = eventHeight+'px';self.modal.style.transform = 'translateX('+modalTranslateX+'px) translateY('+modalTranslateY+'px)';
@@ -216,7 +211,7 @@
 
 			self.modalHeaderBg.addEventListener('transitionend', function cb(){
 				//wait for the  end of the modalHeaderBg transformation and reset modal style
-				Util.addClass(self.modal, 'cd-schedule-modal--no-transition');
+				UtilPlanning.addClass(self.modal, 'cd-schedule-modal--no-transition');
 				setTimeout(function(){
 					self.modal.removeAttribute('style');
 					self.modalBody.removeAttribute('style');
@@ -225,11 +220,11 @@
 					self.modalBodyBg.removeAttribute('style');
 				}, 10);
 				setTimeout(function(){
-					Util.removeClass(self.modal, 'cd-schedule-modal--no-transition');
+					UtilPlanning.removeClass(self.modal, 'cd-schedule-modal--no-transition');
 				}, 20);
 				self.animating = false;
-				Util.removeClass(self.modal, 'cd-schedule-modal--content-loaded');
-				Util.removeClass(item, 'cd-schedule__event--selected');
+				UtilPlanning.removeClass(self.modal, 'cd-schedule-modal--content-loaded');
+				UtilPlanning.removeClass(item, 'cd-schedule__event--selected');
 				self.modalHeaderBg.removeEventListener('transitionend', cb);
 			});
 		}
@@ -250,10 +245,10 @@
 			self.modalHeader.removeAttribute('style');
 			self.modalHeaderBg.removeAttribute('style');
 			self.modalBodyBg.removeAttribute('style');
-			Util.removeClass(self.modal, 'cd-schedule-modal--no-transition');
-			self.animating = false;
+			UtilPlanning.removeClass(self.modal, 'cd-schedule-modal--no-transition');
+			self.animating = false;	
 		} else if( mq == 'desktop' && modalOpen) {
-			Util.addClass(self.modal, 'cd-schedule-modal--no-transition cd-schedule-modal--animation-completed');
+			UtilPlanning.addClass(self.modal, 'cd-schedule-modal--no-transition cd-schedule-modal--animation-completed');
 			var item = self.element.getElementsByClassName('cd-schedule__event--selected')[0],
 				target = item.getElementsByTagName('a')[0];
 
@@ -286,8 +281,8 @@
 			}, 10);
 
 			setTimeout(function(){
-				Util.removeClass(self.modal, 'cd-schedule-modal--no-transition');
-				self.animating = false;
+				UtilPlanning.removeClass(self.modal, 'cd-schedule-modal--no-transition');
+				self.animating = false;	
 			}, 20);
 
 		}
@@ -301,12 +296,14 @@
 		httpRequest.onreadystatechange = function() {
 			if (httpRequest.readyState === XMLHttpRequest.DONE) {
 	      if (httpRequest.status === 200) {
-	      	self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = self.getEventContent(httpRequest.responseText);
-	      	Util.addClass(self.modal, 'cd-schedule-modal--content-loaded');
+	      	//self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = self.getEventContent(httpRequest.responseText);
+			  self.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML = httpRequest.responseText;
+	      	UtilPlanning.addClass(self.modal, 'cd-schedule-modal--content-loaded');
 	      }
 	    }
 		};
-		httpRequest.open('GET', content+'.html');
+		httpRequest.open('GET', "planning" + '/creneau/1');
+		//console.log(httpRequest);
     httpRequest.send();
 	};
 
@@ -314,7 +311,8 @@
 		// reset the loaded event content so that it can be inserted in the modal
 		var div = document.createElement('div');
 		div.innerHTML = string.trim();
-		return div.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML;
+		console.log(this.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML);
+		return this.modal.getElementsByClassName('cd-schedule-modal__event-info')[0].innerHTML;
 	};
 
 	ScheduleTemplate.prototype.animationFallback = function() {
@@ -326,10 +324,8 @@
 	};
 
 	ScheduleTemplate.prototype.mq = function(){
-		//get MQ value ('desktop' or 'mobile')
+		//get MQ value ('desktop' or 'mobile') 
 		var self = this;
-		console.log(this.element);
-		console.log(window.getComputedStyle(this.element, '::before').getPropertyValue('content').replace(/'|"/g, ""));
 		return window.getComputedStyle(this.element, '::before').getPropertyValue('content').replace(/'|"/g, "");
 	};
 
@@ -341,7 +337,7 @@
 		return timeStamp;
 	};
 
-	var scheduleTemplate = document.getElementsByClassName('js-cd-schedule'),
+	var scheduleTemplate = document.getElementsByClassName('js-cd-schedule'),	
 		scheduleTemplateArray = [],
 		resizing = false;
 	if( scheduleTemplate.length > 0 ) { // init ScheduleTemplate objects
@@ -351,7 +347,7 @@
 			})(i);
 		}
 
-		window.addEventListener('resize', function(event) {
+		window.addEventListener('resize', function(event) { 
 			// on resize - update events position and modal position (if open)
 			if( !resizing ) {
 				resizing = true;

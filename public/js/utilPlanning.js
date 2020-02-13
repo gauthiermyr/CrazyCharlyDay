@@ -1,37 +1,37 @@
 // Utility function
-function Util () {};
+function UtilPlanning () {};
 
 /* 
 	class manipulation functions
 */
-Util.hasClass = function(el, className) {
+UtilPlanning.hasClass = function(el, className) {
 	if (el.classList) return el.classList.contains(className);
 	else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
 };
 
-Util.addClass = function(el, className) {
+UtilPlanning.addClass = function(el, className) {
 	var classList = className.split(' ');
  	if (el.classList) el.classList.add(classList[0]);
- 	else if (!Util.hasClass(el, classList[0])) el.className += " " + classList[0];
- 	if (classList.length > 1) Util.addClass(el, classList.slice(1).join(' '));
+ 	else if (!UtilPlanning.hasClass(el, classList[0])) el.className += " " + classList[0];
+ 	if (classList.length > 1) UtilPlanning.addClass(el, classList.slice(1).join(' '));
 };
 
-Util.removeClass = function(el, className) {
+UtilPlanning.removeClass = function(el, className) {
 	var classList = className.split(' ');
 	if (el.classList) el.classList.remove(classList[0]);	
-	else if(Util.hasClass(el, classList[0])) {
+	else if(UtilPlanning.hasClass(el, classList[0])) {
 		var reg = new RegExp('(\\s|^)' + classList[0] + '(\\s|$)');
 		el.className=el.className.replace(reg, ' ');
 	}
-	if (classList.length > 1) Util.removeClass(el, classList.slice(1).join(' '));
+	if (classList.length > 1) UtilPlanning.removeClass(el, classList.slice(1).join(' '));
 };
 
-Util.toggleClass = function(el, className, bool) {
-	if(bool) Util.addClass(el, className);
-	else Util.removeClass(el, className);
+UtilPlanning.toggleClass = function(el, className, bool) {
+	if(bool) UtilPlanning.addClass(el, className);
+	else UtilPlanning.removeClass(el, className);
 };
 
-Util.setAttributes = function(el, attrs) {
+UtilPlanning.setAttributes = function(el, attrs) {
   for(var key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
@@ -40,11 +40,11 @@ Util.setAttributes = function(el, attrs) {
 /* 
   DOM manipulation
 */
-Util.getChildrenByClassName = function(el, className) {
+UtilPlanning.getChildrenByClassName = function(el, className) {
   var children = el.children,
     childrenByClass = [];
   for (var i = 0; i < el.children.length; i++) {
-    if (Util.hasClass(el.children[i], className)) childrenByClass.push(el.children[i]);
+    if (UtilPlanning.hasClass(el.children[i], className)) childrenByClass.push(el.children[i]);
   }
   return childrenByClass;
 };
@@ -52,7 +52,7 @@ Util.getChildrenByClassName = function(el, className) {
 /* 
 	Animate height of an element
 */
-Util.setHeight = function(start, to, element, duration, cb) {
+UtilPlanning.setHeight = function(start, to, element, duration, cb) {
 	var change = to - start,
 	    currentTime = null;
 
@@ -77,7 +77,7 @@ Util.setHeight = function(start, to, element, duration, cb) {
 	Smooth Scroll
 */
 
-Util.scrollTo = function(final, duration, cb) {
+UtilPlanning.scrollTo = function(final, duration, cb) {
   var start = window.scrollY || document.documentElement.scrollTop,
       currentTime = null;
       
@@ -102,7 +102,7 @@ Util.scrollTo = function(final, duration, cb) {
 */
 
 //Move focus to an element
-Util.moveFocus = function (element) {
+UtilPlanning.moveFocus = function (element) {
   if( !element ) element = document.getElementsByTagName("body")[0];
   element.focus();
   if (document.activeElement !== element) {
@@ -115,11 +115,11 @@ Util.moveFocus = function (element) {
   Misc
 */
 
-Util.getIndexInArray = function(array, el) {
+UtilPlanning.getIndexInArray = function(array, el) {
   return Array.prototype.indexOf.call(array, el);
 };
 
-Util.cssSupports = function(property, value) {
+UtilPlanning.cssSupports = function(property, value) {
   if('CSS' in window) {
     return CSS.supports(property, value);
   } else {
