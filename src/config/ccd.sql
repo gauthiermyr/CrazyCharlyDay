@@ -27,6 +27,11 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `account`
 --
+DROP TABLE IF EXISTS poste;
+DROP TABLE IF EXISTS creneau;
+DROP TABLE IF EXISTS cycle;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS account;
 
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
@@ -162,7 +167,7 @@ COMMIT;
 --
 
 INSERT INTO `account` (`user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
-('root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default')
+('root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default'),
 ('loick', '$2y$10$fVKZ9/.D5twEDcZOqNLiCOnKxGwGoRNXDGHdEVGJ7UpDH6gk6S6g.', 'nosal.loick@gmail.com', 'nosal', 'loick', 'default'),
 ('julien', '$2y$10$wESTa5YmkHmC6JAfhVb7zehXB3L78tLsyn5AInWqa/WT6qAXJ5RYK', 'juliennoel9@gmail.com', 'noel', 'julien', 'default'),
 ('louis', '$2y$10$wSw1zOhf3pwP24eN05cDNeKJEvdnDFck7121.di5XI0oBAsZwpA36', 'louis.demange.m@gmail.com', 'demange', 'louis', 'default'),
