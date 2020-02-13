@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
     <link rel="icon" href="<?= $rootUri ?>/public/images/img_site.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/bootstrap.css">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/style.css">
@@ -24,7 +25,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $rootUri ?>">Accueil</a>
+                    <a class="nav-link" href="<?php
+                    if (isset($_SESSION['login']))
+                        echo $rootUri . '/planning';
+                    else
+                        echo $rootUri;
+                    ?>">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link">Page 1</a>
@@ -41,7 +47,7 @@
             <ul class="navbar-nav ml-auto">
                 <?php if (isset($_SESSION['login'])) : ?>
                     <li class="nav-item">
-                        <a class="nav-link logout" ">Déconnexion</a>
+                        <a class="nav-link logout" href="<?=$router->pathFor('logout')?>">Déconnexion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ">Mon compte</a>
