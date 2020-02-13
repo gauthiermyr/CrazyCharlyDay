@@ -87,7 +87,7 @@ $app->get('/planning/{semaine:[ABCD]}/creneau/{id:[0-9]+}', function (Request $r
     return $controller->getCreneau($request, $response, $args);
 })->setName('getCreneau');
 
-$app->get('/planning/creneau/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+$app->get('/planning/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->getCreneau($request, $response, $args);
 })->setName('getCreneau');
@@ -102,7 +102,7 @@ $app->post('/inscription[/]', function (Request $request, Response $response, ar
     return $controller->postInscription($request, $response, $args);
 });
 
-$app->get('/deconnexion', function (Request $request, Response $response, array $args) {
+$app->get('/deconnexion[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->getLogout($request, $response, $args);
 })->setName('logout');
@@ -112,7 +112,7 @@ $app->get('/membres[/]', function (Request $request, Response $response, array $
     return $controller->displayUsers($request, $response, $args);
 })->setName('members');
 
-$app->get('/compte', function (Request $request, Response $response, array $args) {
+$app->get('/compte[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->getCompte($request, $response, $args);
 })->setName('account');
@@ -122,12 +122,12 @@ $app->post('/editAccount/{id:[0-9]+}[/]', function (Request $request, Response $
     return $controller->postEditAccount($request, $response, $args);
 })->setName('editAccount');
 
-$app->post('/changePassword', function (Request $request, Response $response, array $args) {
+$app->post('/changePassword[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->postChangePassword($request, $response, $args);
 })->setName('changePassword');
 
-$app->post('/deleteAccount', function (Request $request, Response $response, array $args) {
+$app->post('/deleteAccount[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->postDeleteAccount($request, $response, $args);
 })->setName('deleteAccount');
