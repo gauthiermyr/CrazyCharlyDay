@@ -22,8 +22,8 @@ class AccountController extends Controller {
         $account = Account::where('email', '=', $id)->orwhere('user', '=', $id)->first();
 
         if (isset($account) and password_verify($_POST['password'], $account->hash)) {
-            $_SESSION['login'] = serialize(['email' => $account->email, 'username' => $account->user,
-                'prenom' => $account->prenom, 'nom' => $account->nom]);
+            $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user,
+                'prenom' => $account->prenom, 'nom' => $account->nom];
             return $this->redirect($response, 'planning');
         } else {
             $_SESSION['redirect']['msg'] = '<div class="alert alert-danger">Nom d\'utilisateur ou mot de passe incorrect, réessayez.</div>';
