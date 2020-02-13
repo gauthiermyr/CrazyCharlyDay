@@ -4,7 +4,7 @@
             <h5 class="modal-title">Mon compte</h5>
             <img src="<?=$rootUri . '../public/images/user/' . $account->img  .'.jpg'?>" width="40" height="40">
         </div>
-        <form method="POST" action="<?=$router->pathFor('editAccount', ['username'=>$account->user])?>">
+        <form method="POST" action="<?=$router->pathFor('editAccount', ['id'=>$account->idCompte])?>">
             <div class="modal-body">
                 <?php if (isset($_SESSION['redirect']['msg'])) {
                     echo $_SESSION['redirect']['msg'];

@@ -6,9 +6,11 @@ use crazycharlyday\models\Account;
 use Slim\Http\Response;
 use Slim\Http\Request;
 
-class AccountController extends Controller {
+class AccountController extends Controller
+{
 
-    public function getLogin(Request $request, Response $response, array $args) {
+    public function getLogin(Request $request, Response $response, array $args)
+    {
         if (isset($_SERVER['HTTP_REFERER'])) {
             $_SESSION['previousPage'] = $_SERVER['HTTP_REFERER'];
         }
@@ -17,7 +19,8 @@ class AccountController extends Controller {
         return $response;
     }
 
-    public function postLogin(Request $request, Response $response, array $args) {
+    public function postLogin(Request $request, Response $response, array $args)
+    {
         $id = trim($_POST['id']);
         $account = Account::where('email', '=', $id)->orwhere('user', '=', $id)->first();
 
@@ -32,20 +35,23 @@ class AccountController extends Controller {
         }
     }
 
-    public function displayUsers(Request $request, Response $response, array $args){
+    public function displayUsers(Request $request, Response $response, array $args)
+    {
         $accounts = Account::select('*')->get();
         $args['accounts'] = $accounts;
         $this->container->view->render($response, 'members.phtml', $args);
         return $response;
     }
 
-    public function getInscription(Request $request, Response $response, array $args) {
+    public function getInscription(Request $request, Response $response, array $args)
+    {
         $args['title'] = 'Grande Épicerie Générale - Inscription d\'un participant';
         $this->container->view->render($response, 'inscription.phtml', $args);
         return $response;
     }
 
-    public function postInscription(Request $request, Response $response, array $args) {
+    public function postInscription(Request $request, Response $response, array $args)
+    {
         $account = new Account();
         $account->user = trim($_POST['user']);
         $account->hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -61,12 +67,14 @@ class AccountController extends Controller {
         return $this->redirect($response, 'planning');
     }
 
-    public function getLogout(Request $request, Response $response, array $args) {
+    public function getLogout(Request $request, Response $response, array $args)
+    {
         unset($_SESSION['login']);
         return $this->redirect($response, 'login');
     }
 
-    public function getCompte(Request $request, Response $response, array $args) {
+    public function getCompte(Request $request, Response $response, array $args)
+    {
         if (isset($_SESSION['login'])) {
             $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
             $args['account'] = $account;
@@ -77,8 +85,9 @@ class AccountController extends Controller {
         return $response;
     }
 
-    public function getCompteById(Request $request, Response $response, array $args) {
-        if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) {
+    public function getCompteById(Request $request, Response $response, array $args)
+    {
+        if (isset($_SESSION['login']) && ($_SESSION['login']['admin'] == 1)) {
             $account = Account::where('idCompte', '=', $args['id'])->first();
             $args['account'] = $account;
             $args['user'] = $account->user;
@@ -89,22 +98,20 @@ class AccountController extends Controller {
     }
 
     public function postEditAccount(Request $request, Response $response, array $args) {
-        $account = Account::where('user', '=', $_POST['username'])->first();
-        var_dump($_POST);
-        exit(0);
+        $account = Account::where('idCompte', '=', $args['id'])->first();
+        $admin = ($account->nom != $_SESSION['login']['nom']) ? true : false;
 
         if ($account->email != $_POST['email'] || $account->prenom != $_POST['prenom'] || $account->nom != $_POST['nom']) {
             $account->email = trim($_POST['email']);
             $account->prenom = trim($_POST['prenom']);
             $account->nom = trim($_POST['nom']);
             $account->save();
-        if($_POST['username'] != $_SESSION['login']['username']){
-            unset($_POST['username']);
-        }else{
-            unset($_SESSION['login']);
-            $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user, 'prenom' => $account->prenom, 'nom' => $account->nom];
+
+            if (!$admin) {
+                unset($_SESSION['login']);
+                $_SESSION['login'] = ['email' => $account->email, 'username' => $account->user, 'prenom' => $account->prenom, 'nom' => $account->nom];
+            }
             $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Les modifications ont bien été enregistrées.</div>';
-        }
         }
         return $this->redirect($response, 'account');
     }
@@ -124,7 +131,8 @@ class AccountController extends Controller {
         }
     }
 
-    public function postDeleteAccount(Request $request, Response $response, array $args) {
+    public function postDeleteAccount(Request $request, Response $response, array $args)
+    {
         $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
         if (password_verify($_POST['password'], $account->hash)) {
             $account->delete();
@@ -137,7 +145,8 @@ class AccountController extends Controller {
         }
     }
 
-    public function displayUsersUpdate(Request $request, Response $response, array $args){
+    public function displayUsersUpdate(Request $request, Response $response, array $args)
+    {
         $accounts = Account::select('*')->get();
         $args['accounts'] = $accounts;
         $this->container->view->render($response, 'gestion.phtml', $args);

@@ -1,3 +1,4 @@
+<?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
 <h1>Créez un nouveau créneau (durée : 3h)</h1><br>
 <form method="POST" action="<?= $router->pathFor('newCreneau') ?>">
     <div class="form-group">
@@ -57,6 +58,9 @@
         <button type="submit" class="btn btn-primary">Créer le créneau</button>
     </div>
 </form>
+<?php else: ?>
+    <h5 align="center"> <strong>Il faut être connecté et être administrateur pour creer un nouveau créneau.</strong></h5>
+<?php endif; ?>
 
 <script>
     <?php
