@@ -3,6 +3,9 @@
 use Slim\Views\PhpRenderer;
 use Slim\Http\Response;
 use Slim\Http\Request;
+use crazycharlyday\controllers\AccountController;
+use crazycharlyday\controllers\PlanningController;
+
 
 require_once 'vendor/autoload.php';
 
@@ -65,16 +68,34 @@ $container['notFoundHandler'] = function ($container) {
  * Main pages
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    $this->view->render($response, 'home.phtml', ['title' => 'Grande Épicerie Générale - Accueil']);
-})->setName('home');
+    $controller = new AccountController($this);
+    return $controller->getLogin($request, $response, $args);
+})->setName('login');
 
+$app->post('/', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postLogin($request, $response, $args);
+});
 
 $app->get('/planning[/]', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->displayPlanning($request, $response, $args);
-})->setName('register');
+})->setName('planning');
 
+$app->get('/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->getCreneau($request, $response, $args);
+})->setName('getCreneau');
 
+$app->get('/inscription[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->getInscription($request, $response, $args);
+})->setName('inscription');
+
+$app->post('/inscription[/]', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->postInscription($request, $response, $args);
+})->setName('inscription');
 
 /**
  * Run of Slim
