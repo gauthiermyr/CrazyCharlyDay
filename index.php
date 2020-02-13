@@ -77,12 +77,17 @@ $app->post('/', function (Request $request, Response $response, array $args) {
     return $controller->postLogin($request, $response, $args);
 });
 
-$app->get('/planning[/]', function (Request $request, Response $response, array $args) {
+$app->get('/planning/{semaine:[ABCD]}[/]', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->displayPlanning($request, $response, $args);
 })->setName('planning');
 
-$app->get('/planning/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+$app->get('/planning/{semaine:[ABCD]}/creneau/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->getCreneau($request, $response, $args);
+})->setName('getCreneau');
+
+$app->get('/planning/creneau/{id:[0-9]+}', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->getCreneau($request, $response, $args);
 })->setName('getCreneau');
@@ -127,6 +132,15 @@ $app->post('/deleteAccount', function (Request $request, Response $response, arr
     return $controller->postDeleteAccount($request, $response, $args);
 })->setName('deleteAccount');
 
+$app->get('/nouveauCreneau[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->getNewCreneau($request, $response, $args);
+})->setName('newCreneau');
+
+$app->post('/nouveauCreneau[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->postNewCreneau($request, $response, $args);
+});
 $app->get('/gestion[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->displayUsersUpdate($request, $response, $args);
