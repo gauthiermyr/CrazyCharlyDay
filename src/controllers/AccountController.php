@@ -48,7 +48,7 @@ class AccountController extends Controller {
     public function postInscription(Request $request, Response $response, array $args) {
         $account = new Account();
         $account->user = trim($_POST['user']);
-        $account->hash = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+        $account->hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $account->email = trim($_POST['email']);
         $account->nom = trim($_POST['nom']);
         $account->prenom = trim($_POST['prenom']);
@@ -90,5 +90,33 @@ class AccountController extends Controller {
             $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Les modifications ont bien été enregistrées.</div>';
         }
         return $this->redirect($response, 'account');
+    }
+
+    public function postChangePassword(Request $request, Response $response, array $args) {
+        $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
+        if (password_verify($_POST['oldPassword'], $account->hash)) {
+            $account->hash = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+            $account->save();
+
+            $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Le mot de passe a bien été modifié.</div>';
+            $_SESSION['redirect']['username'] = $account->username;
+            return $this->redirect($response, 'account');
+        } else {
+            $_SESSION['redirect']['msg'] = '<div class="alert alert-danger">Ancien mot de passe incorrect, réessayez.</div>';
+            return $this->redirect($response, 'account');
+        }
+    }
+
+    public function postDeleteAccount(Request $request, Response $response, array $args) {
+        $account = Account::where('user', '=', $_SESSION['login']['username'])->first();
+        if (password_verify($_POST['password'], $account->hash)) {
+            $account->delete();
+            unset($_SESSION['login']);
+            $_SESSION['redirect']['msg'] = '<div class="alert alert-success">Votre compte a bien été supprimé.</div>';
+            return $this->redirect($response, 'login');
+        } else {
+            $_SESSION['redirect']['msg'] = '<div class="alert alert-danger">Mot de passe incorrect, réessayez.</div>';
+            return $this->redirect($response, 'inscription');
+        }
     }
 }
