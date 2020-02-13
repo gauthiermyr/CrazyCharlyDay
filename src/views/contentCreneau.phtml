@@ -1,0 +1,20 @@
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Rôle</th>
+        <th scope="col">Personne</th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($postes as $poste) : ?>
+            <tr>
+                <th scope="row"><?= $poste.role ?></th>
+                <?php if ($poste.idCompte != null) : ?>
+                    <td><?= $poste.idCompte ?></td>
+                <?php else: ?>
+                    <td>S'inscrire</td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
