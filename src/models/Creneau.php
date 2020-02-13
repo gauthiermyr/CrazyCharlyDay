@@ -1,16 +1,18 @@
 <?php
 
+
 namespace crazycharlyday\models;
+
 
 use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model {
+class Creneau extends Model {
 
-    protected $table = 'account';
+    protected $table = 'creneau';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     public function toArray() {
-        return $this->getAttributes();
+        $this->getAttributes();
     }
 }
