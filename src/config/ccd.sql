@@ -75,19 +75,19 @@ CREATE TABLE IF NOT EXISTS `creneau` (
 -- Déchargement des données de la table `creneau`
 --
 
-INSERT INTO `creneau` (`id`, `cycle`, `semaine`, `jour`, `heureD`, `heureF`) VALUES
-(1, 0, 'A', 1, 8, 11),
-(14, 0, 'A', 1, 14, 17),
-(15, 0, 'A', 3, 11, 14),
-(16, 0, 'B', 1, 8, 11),
-(17, 0, 'B', 2, 8, 11),
-(18, 0, 'B', 4, 12, 15),
-(19, 0, 'C', 1, 8, 11),
-(20, 0, 'C', 2, 9, 12),
-(21, 0, 'C', 6, 13, 16),
-(22, 0, 'D', 1, 8, 11),
-(23, 0, 'D', 3, 16, 19),
-(24, 0, 'D', 4, 8, 11);
+INSERT INTO `creneau` (`id`,`cycle`, `semaine`, `jour`, `heureD`, `heureF`) VALUES
+(1,0, 'A', 1, 8, 11),
+(2,0, 'A', 1, 14, 17),
+(3,0, 'A', 3, 11, 14),
+(4,0, 'B', 1, 8, 11),
+(5,0, 'B', 2, 8, 11),
+(6,0, 'B', 4, 12, 15),
+(7,0, 'C', 1, 8, 11),
+(8,0, 'C', 2, 9, 12),
+(9,0, 'C', 6, 13, 16),
+(10,0, 'D', 1, 8, 11),
+(11,0, 'D', 3, 16, 19),
+(12,0, 'D', 4, 8, 11);
 
 --
 -- Déclencheurs `creneau`
@@ -144,10 +144,30 @@ CREATE TABLE IF NOT EXISTS `poste` (
 -- Déchargement des données de la table `poste`
 --
 
-INSERT INTO `poste` (`id`, `creneau`, `idCompte`, `role`) VALUES
-(1, 1, NULL, 'caissier'),
-(2, 1, NULL, 'livreur'),
-(3, 1, NULL, 'vendeur');
+INSERT INTO `poste` (`id`,`creneau`, `idCompte`, `role`) VALUES
+(1,1, NULL, 'caissier'),
+(2,1, NULL, 'livreur'),
+(3,1, NULL, 'vendeur'),
+(4,2, NULL, 'vendeur'),
+(5,2, NULL, 'caissier'),
+(6,3, NULL, 'livreur'),
+(7,4, NULL, 'caissier'),
+(8,5, NULL, 'livreur'),
+(9,5, NULL, 'vendeur'),
+(10,6, NULL, 'caissier'),
+(11,6, NULL, 'livreur'),
+(12,7, NULL, 'caissier'),
+(13,7, NULL, 'livreur'),
+(14,8, NULL, 'caissier'),
+(15,8, NULL, 'livreur'),
+(16,9, NULL, 'caissier'),
+(17,9, NULL, 'livreur'),
+(18,10, NULL, 'caissier'),
+(19,10, NULL, 'livreur'),
+(20,11, NULL, 'caissier'),
+(21,11, NULL, 'livreur'),
+(22,12, NULL, 'caissier'),
+(23,12, NULL, 'livreur');
 
 -- --------------------------------------------------------
 
