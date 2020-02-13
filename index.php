@@ -117,7 +117,7 @@ $app->get('/compte', function (Request $request, Response $response, array $args
     return $controller->getCompte($request, $response, $args);
 })->setName('account');
 
-$app->post('/editAccount', function (Request $request, Response $response, array $args) {
+$app->post('/editAccount/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->postEditAccount($request, $response, $args);
 })->setName('editAccount');
