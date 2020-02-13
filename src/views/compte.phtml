@@ -10,7 +10,7 @@
                     echo $_SESSION['redirect']['msg'];
                     unset($_SESSION['redirect']['msg']);
                 } ?>
-                <?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
+                <?php if (isset($_SESSION['login']['admin']) && ($_SESSION['login']['admin']==1)) : ?>
                 <div class="form-group">
                     <strong><label for="prenom">Vous êtes sur un compte administrateur.</label></strong>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary" href="<?= $router->pathFor('planning')?>" role="button">Retour</a>
+                <a class="btn btn-secondary" href="<?= $router->pathFor('planning', ["semaine"=>'A'])?>" role="button">Retour</a>
                 <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
             </div>
         </form>
