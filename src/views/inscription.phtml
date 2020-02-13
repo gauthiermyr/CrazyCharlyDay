@@ -1,4 +1,4 @@
-<?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
+<?php if (isset($_SESSION['login']) && isset($_SESSION['login']['admin']) && $_SESSION['login']['admin']==1) : ?>
 <form method="post" action="<?= $router->pathFor('inscription') ?>">
     <div class="modal-dialog">
         <div class="modal-dialog">
