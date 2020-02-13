@@ -37,15 +37,16 @@ CREATE TABLE IF NOT EXISTS `account` (
   `nom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default',
+  `admin` boolean COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`idCompte`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `account`
 --
-
+INSERT INTO `account` (`idCompte`, `user`, `hash`, `email`, `nom`, `prenom`, `img`,`admin`) VALUES
+(1, 'root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default',TRUE);
 INSERT INTO `account` (`idCompte`, `user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
-(1, 'root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default'),
 (2, 'loick', '$2y$10$fVKZ9/.D5twEDcZOqNLiCOnKxGwGoRNXDGHdEVGJ7UpDH6gk6S6g.', 'nosal.loick@gmail.com', 'nosal', 'loick', 'default'),
 (3, 'julien', '$2y$10$wESTa5YmkHmC6JAfhVb7zehXB3L78tLsyn5AInWqa/WT6qAXJ5RYK', 'juliennoel9@gmail.com', 'noel', 'julien', 'default'),
 (4, 'louis', '$2y$10$wSw1zOhf3pwP24eN05cDNeKJEvdnDFck7121.di5XI0oBAsZwpA36', 'louis.demange.m@gmail.com', 'demange', 'louis', 'default'),

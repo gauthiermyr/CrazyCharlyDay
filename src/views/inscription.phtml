@@ -1,4 +1,4 @@
-<?php if (!isset($_SESSION['login'])) : ?>
+<?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
 <form method="post" action="<?= $router->pathFor('inscription') ?>">
     <div class="modal-dialog">
         <div class="modal-dialog">
@@ -51,7 +51,7 @@
 </form>
 
 <?php else: ?>
-    <h1>Vous êtes déjà connecté. Cette page n'est pas disponible.</h1>
+    <h1>Il faut être admin et connecté pour creer un compte.</h1>
 <?php endif; ?>
 
 <script>
