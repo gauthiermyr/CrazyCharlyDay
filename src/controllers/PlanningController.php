@@ -86,7 +86,7 @@ END;
         $creneau->semaine = $_POST['semaine'];
         $creneau->jour = (int)($_POST['jour']);
         $creneau->heureD = (int)($_POST['heureDeb']);
-        $creneau->heureF = (int)($_POST['heureFin']);
+        $creneau->heureF = ((int)($_POST['heureDeb']))+3;
         $creneau->save();
 
         $newCreneauId = Creneau::select('*')->max('id');
@@ -103,6 +103,7 @@ END;
                 }
             }
         }
+        $_SESSION['msg'] = 'Votre créneau a bien été créé !';
         return $this->redirect($response, 'newCreneau', $args);
     }
 }
