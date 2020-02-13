@@ -32,6 +32,13 @@ class AccountController extends Controller {
         }
     }
 
+    public function displayUsers(Request $request, Response $response, array $args){
+        $accounts = Account::select('*')->get();
+        $args['accounts'] = $accounts;
+        $this->container->view->render($response, 'members.phtml', $args);
+        return $response;
+    }
+
     public function getInscription(Request $request, Response $response, array $args) {
         $args['title'] = 'Grande Épicerie Générale - Inscription d\'un participant';
         $this->container->view->render($response, 'inscription.phtml', $args);

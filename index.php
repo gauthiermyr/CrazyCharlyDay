@@ -102,6 +102,12 @@ $app->get('/deconnexion', function (Request $request, Response $response, array 
     return $controller->getLogout($request, $response, $args);
 })->setName('logout');
 
+$app->get('/membres[/]', function (Request $request, Response $response, array $args) {
+     $controller = new AccountController($this);
+    return $controller->displayUsers($request, $response, $args);
+    $this->view->render($response, 'members.phtml', ['title' => 'Grande Épicerie Générale - Membres']);
+})->setName('members');
+
 /**
  * Run of Slim
  */

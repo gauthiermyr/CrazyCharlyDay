@@ -1,0 +1,18 @@
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($accounts as $account) : ?>
+        <tr>
+            <td scope="row"><?= $account->nom ?></td>
+            <td scope="row"><?= $account->prenom ?></td>
+            <td scope="row"><?= $account->email ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/style.css">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/planningStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css"/>
-    <title><?= $title ?></title>
+    <title><?=$title?></title>
 </head>
 <body>
 <script src="<?= $rootUri ?>/public/js/jquery.slim.min.js"></script>
@@ -33,7 +33,7 @@
                     ?>">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Page 1</a>
+                    <a class="nav-link" href="<?= $router->pathFor('members') ?>">Membres</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link">Page 2</a>
@@ -65,11 +65,12 @@
     </div>
 </nav>
 
-<div class="container mt-3">
-    <?= $content ?>
-</div>
-<br>
+    <div class="container mt-3">
+        <?= $content ?>
+    </div>
+    <br>
 </body>
+
 
 <footer class="page-footer font-small mdb-color lighten-3 pt-4 headfoot ">
     <div class="container text-center text-md-left">
