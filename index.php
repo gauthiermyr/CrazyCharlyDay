@@ -105,7 +105,6 @@ $app->get('/deconnexion', function (Request $request, Response $response, array 
 $app->get('/membres[/]', function (Request $request, Response $response, array $args) {
      $controller = new AccountController($this);
     return $controller->displayUsers($request, $response, $args);
-    $this->view->render($response, 'members.phtml', ['title' => 'Grande Épicerie Générale - Membres']);
 })->setName('members');
 
 $app->get('/compte', function (Request $request, Response $response, array $args) {
