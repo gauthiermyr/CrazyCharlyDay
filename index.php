@@ -3,6 +3,7 @@
 use Slim\Views\PhpRenderer;
 use Slim\Http\Response;
 use Slim\Http\Request;
+use crazycharlyday\controllers\PlanningController;
 
 require_once 'vendor/autoload.php';
 
@@ -74,7 +75,10 @@ $app->get('/planning[/]', function (Request $request, Response $response, array 
     return $controller->displayPlanning($request, $response, $args);
 })->setName('register');
 
-
+$app->get('/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->getCreneau($request, $response, $args);
+})->setName('getCreneau');
 
 /**
  * Run of Slim
