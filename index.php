@@ -95,7 +95,12 @@ $app->get('/inscription[/]', function (Request $request, Response $response, arr
 $app->post('/inscription[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->postInscription($request, $response, $args);
-})->setName('inscription');
+});
+
+$app->get('/deconnexion', function (Request $request, Response $response, array $args) {
+    $controller = new AccountController($this);
+    return $controller->getLogout($request, $response, $args);
+})->setName('logout');
 
 /**
  * Run of Slim
