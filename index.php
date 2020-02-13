@@ -75,6 +75,7 @@ $app->get('/planning[/]', function (Request $request, Response $response, array 
 })->setName('register');
 
 
+
 /**
  * Run of Slim
  */
