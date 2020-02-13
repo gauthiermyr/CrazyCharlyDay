@@ -6,58 +6,64 @@
     <link rel="icon" href="<?= $rootUri ?>/public/images/img_site.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/bootstrap.css">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/style.css">
+    <link rel="stylesheet" href="<?= $rootUri ?>/public/css/planningStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css"/>
     <title><?=$title?></title>
 </head>
+<body>
+    <script src="<?= $rootUri ?>/public/js/jquery.slim.min.js"></script>
+    <script src="<?= $rootUri ?>/public/js/bootstrap.min.js"></script>
 
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top headfoot ">
-    <div class="container">
-        <a class="navbar-brand" href="#"></a>Grande Epicerie General</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Page 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Page 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Remerciement</a>
-                </li>
-            </ul>
+    <nav id="nav" class="navbar navbar-expand-lg navbar-dark sticky-top headfoot ">
+        <div class="container">
+            <a class="navbar-brand" href="#"></a>Grande Epicerie General</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Page 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Page 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Remerciement</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <?php if (isset($_SESSION['login'])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link logout" ">Déconnexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ">Mon compte</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="inscription">Inscription</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ">Connexion</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <?php if (isset($_SESSION['login'])) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link logout" ">Déconnexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ">Mon compte</a>
-                    </li>
-                <?php else : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="inscription">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ">Connexion</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <?= $content ?>
     </div>
-</nav>
+    <br>
+</body>
 
-<div class="container mt-3">
-    <?= $content ?>
-</div>
-<br>
 
 <footer class="page-footer font-small mdb-color lighten-3 pt-4 headfoot ">
     <div class="container text-center text-md-left">

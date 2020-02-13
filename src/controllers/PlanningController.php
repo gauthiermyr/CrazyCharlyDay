@@ -10,6 +10,10 @@ use Slim\Http\Request;
 class PlanningController extends Controller
 {
 
+    public function displayPlanning(Request $request, Response $response, array $args){
+        $this->container->view->render($response, 'planning.phtml', $args);
+    }
+
     public function getCreneau(Request $request, Response $response, array $args){
         //$creneau = Creneau::where('id','=',$args['id'])->first();
         $postes = Poste::where('creneau','=',$args['id']);
