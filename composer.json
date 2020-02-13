@@ -23,7 +23,7 @@
     "illuminate/database": "5.5.*",
     "slim/slim": "3.*",
     "slim/php-view": "2.*",
-    "php": ">=7.0.33",
+    "php": ">=7.0.3",
     "ext-json": "*",
     "slim/csrf": "0.8.3"
   },
