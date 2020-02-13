@@ -82,7 +82,7 @@ $app->get('/planning[/]', function (Request $request, Response $response, array 
     return $controller->displayPlanning($request, $response, $args);
 })->setName('planning');
 
-$app->get('/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
+$app->get('/planning/creneau/{id:[0-9]+}[/]', function (Request $request, Response $response, array $args) {
     $controller = new PlanningController($this);
     return $controller->getCreneau($request, $response, $args);
 })->setName('getCreneau');
