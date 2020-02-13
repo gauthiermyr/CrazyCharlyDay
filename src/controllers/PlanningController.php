@@ -3,14 +3,13 @@
 namespace crazycharlyday\controllers;
 use crazycharlyday\models\Creneau;
 use crazycharlyday\models\Poste;
+use crazycharlyday\models\Role;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Response;
 use Slim\Http\Request;
 use Slim\Views\PhpRenderer;
 
-class PlanningController extends Controller
-{
-
+class PlanningController extends Controller{
     public function displayPlanning(Request $request, Response $response, array $args){
         $cycle = 0;
         //TODO cycle
@@ -75,6 +74,35 @@ END;
 
     }
 
+    public function getNewCreneau(Request $request, Response $response, array $args){
+        $roles = Role::select('libelle')->get();
+        $args['roles'] = $roles;
+        $this->container->view->render($response, 'newCreneau.phtml', $args);
+    }
 
+    public function postNewCreneau(Request $request, Response $response, array $args) {
+        $creneau = new Creneau();
+        $creneau->cycle = $_POST['cycle'];
+        $creneau->semaine = $_POST['semaine'];
+        $creneau->jour = (int)($_POST['jour']);
+        $creneau->heureD = (int)($_POST['heureDeb']);
+        $creneau->heureF = (int)($_POST['heureFin']);
+        $creneau->save();
 
+        $newCreneauId = Creneau::select('*')->max('id');
+
+        $roles = Role::select('libelle')->get();
+        foreach ($roles as $role){
+            if ($_POST["$role->libelle"] > 0){
+                for ($i = 0; $i < $_POST["$role->libelle"]; $i++) {
+                    $poste = new Poste();
+                    $poste->creneau = $newCreneauId;
+                    $poste->idCompte=null;
+                    $poste->role=$role->libelle;
+                    $poste->save();
+                }
+            }
+        }
+        return $this->redirect($response, 'newCreneau', $args);
+    }
 }

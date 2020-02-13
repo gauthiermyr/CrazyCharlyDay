@@ -132,6 +132,15 @@ $app->post('/deleteAccount', function (Request $request, Response $response, arr
     return $controller->postDeleteAccount($request, $response, $args);
 })->setName('deleteAccount');
 
+$app->get('/nouveauCreneau[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->getNewCreneau($request, $response, $args);
+})->setName('newCreneau');
+
+$app->post('/nouveauCreneau[/]', function (Request $request, Response $response, array $args) {
+    $controller = new PlanningController($this);
+    return $controller->postNewCreneau($request, $response, $args);
+});
 $app->get('/gestion[/]', function (Request $request, Response $response, array $args) {
     $controller = new AccountController($this);
     return $controller->displayUsersUpdate($request, $response, $args);

@@ -51,7 +51,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$router->pathFor('account')?>">Mon compte</a>
                     </li>
-                    <?php if ($_SESSION['login']['admin']==1) : ?>
+                    <?php if ( isset($_SESSION['login']['admin']) and $_SESSION['login']['admin']==1) : ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gestion des comptes
