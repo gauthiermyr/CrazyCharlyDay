@@ -10,6 +10,11 @@
                     echo $_SESSION['redirect']['msg'];
                     unset($_SESSION['redirect']['msg']);
                 } ?>
+                <?php if (isset($_SESSION['login']) && ($_SESSION['login']['admin']==1)) : ?>
+                <div class="form-group">
+                    <strong><label for="prenom">Vous êtes sur un compte administrateur.</label></strong>
+                </div>
+                <?php endif; ?>
                 <div class="form-group">
                     <label for="prenom">Prénom</label>
                     <input required type="text" name="prenom" class="form-control" placeholder="Prénom" id="prenom" value="<?= $account->prenom ?>">
