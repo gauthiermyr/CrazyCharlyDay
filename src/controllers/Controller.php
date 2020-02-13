@@ -4,7 +4,7 @@ namespace crazycharlyday\controllers;
 use Slim\Http\Response;
 
 class Controller {
-    protected  $container;
+    protected $container;
 
     public function __construct($container) {
         $this->container = $container;
