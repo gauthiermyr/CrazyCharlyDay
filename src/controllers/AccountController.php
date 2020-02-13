@@ -31,4 +31,26 @@ class AccountController extends Controller {
         }
     }
 
+    public function getInscription(Request $request, Response $response, array $args) {
+        $args['title'] = 'Grande Épicerie Générale - Inscription d\'un participant';
+        $this->container->view->render($response, 'inscription.phtml', $args);
+        return $response;
+    }
+
+    public function postInscription(Request $request, Response $response, array $args) {
+        $account = new Account();
+        $account->user = trim($_POST['user']);
+        $account->hash = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+        $account->email = trim($_POST['email']);
+        $account->nom = trim($_POST['nom']);
+        $account->prenom = trim($_POST['prenom']);
+
+        $account->save();
+
+        $_SESSION['login'] = serialize(['email' => $account->email, 'username' => $account->user,
+            'prenom' => $account->prenom, 'nom' => $account->nom]);
+
+        //$this->container->view->render($response, 'inscription.phtml', $args);
+        return $response;
+    }
 }

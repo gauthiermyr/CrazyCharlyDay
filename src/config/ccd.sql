@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 13 fév. 2020 à 12:02
+-- Généré le :  jeu. 13 fév. 2020 à 14:51
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -27,11 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `account`
 --
-DROP TABLE IF EXISTS poste;
-DROP TABLE IF EXISTS creneau;
-DROP TABLE IF EXISTS cycle;
-DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS account;
 
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE IF NOT EXISTS `account` (
@@ -43,15 +38,20 @@ CREATE TABLE IF NOT EXISTS `account` (
   `prenom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default',
   PRIMARY KEY (`idCompte`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `account`
 --
 
 INSERT INTO `account` (`idCompte`, `user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', 'adminNom', 'adminPrenom', 'default');
-
+(1, 'admin', 'admin', 'admin@gmail.com', 'adminNom', 'adminPrenom', 'default'),
+(8, 'root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default'),
+(9, 'loick', '$2y$10$fVKZ9/.D5twEDcZOqNLiCOnKxGwGoRNXDGHdEVGJ7UpDH6gk6S6g.', 'nosal.loick@gmail.com', 'nosal', 'loick', 'default'),
+(10, 'julien', '$2y$10$wESTa5YmkHmC6JAfhVb7zehXB3L78tLsyn5AInWqa/WT6qAXJ5RYK', 'juliennoel9@gmail.com', 'noel', 'julien', 'default'),
+(11, 'louis', '$2y$10$wSw1zOhf3pwP24eN05cDNeKJEvdnDFck7121.di5XI0oBAsZwpA36', 'louis.demange.m@gmail.com', 'demange', 'louis', 'default'),
+(12, 'gauthier', '$2y$10$rts0zZThndNbkObCSAHWheIoAiVopz2u3aDwDvIge9DMshK5WJSYe', 'gauthier.mayer5@gmail.com', 'noel', 'julien', 'default'),
+(13, 'sacha', '$2y$10$2p.64mTqjPs.FIUH9DgBZeg5OxUG3Xmr60d1YLmf.uC5UnUe0AveO', 'sacha.thommet5@orange.fr', 'noel', 'julien', 'default');
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,25 @@ CREATE TABLE IF NOT EXISTS `creneau` (
   `heureF` int(2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_creneauCycle` (`cycle`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `creneau`
+--
+
+INSERT INTO `creneau` (`id`, `cycle`, `semaine`, `jour`, `heureD`, `heureF`) VALUES
+(1, 0, 'A', 1, 8, 11),
+(14, 0, 'A', 1, 14, 17),
+(15, 0, 'A', 3, 11, 14),
+(16, 0, 'B', 1, 8, 11),
+(17, 0, 'B', 2, 8, 11),
+(18, 0, 'B', 4, 12, 15),
+(19, 0, 'C', 1, 8, 11),
+(20, 0, 'C', 1, 9, 12),
+(21, 0, 'C', 6, 13, 16),
+(22, 0, 'D', 1, 8, 11),
+(23, 0, 'D', 3, 16, 19),
+(24, 0, 'D', 4, 8, 11);
 
 --
 -- Déclencheurs `creneau`
@@ -91,14 +109,18 @@ DROP TABLE IF EXISTS `cycle`;
 CREATE TABLE IF NOT EXISTS `cycle` (
   `numero` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`numero`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `cycle`
 --
 
 INSERT INTO `cycle` (`numero`) VALUES
-(0);
+(0),
+(1),
+(2),
+(3),
+(4);
 
 -- --------------------------------------------------------
 
@@ -116,7 +138,16 @@ CREATE TABLE IF NOT EXISTS `poste` (
   UNIQUE KEY `UNIQUE` (`idCompte`,`creneau`),
   KEY `FK_posteCreneau` (`creneau`),
   KEY `FK_posteRole` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `poste`
+--
+
+INSERT INTO `poste` (`id`, `creneau`, `idCompte`, `role`) VALUES
+(1, 1, NULL, 'caissier'),
+(2, 1, NULL, 'livreur'),
+(3, 1, NULL, 'vendeur');
 
 -- --------------------------------------------------------
 
@@ -136,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 
 INSERT INTO `role` (`libelle`) VALUES
 ('caissier'),
+('livreur'),
 ('vendeur');
 
 --
@@ -160,47 +192,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
---
--- Valeurs tables
---
-
-INSERT INTO `account` (`user`, `hash`, `email`, `nom`, `prenom`, `img`) VALUES
-('root', '$2y$10$zUnLFNxa0iP4svm5PMKvHu8u7Z8LWsedo0udjxQqfcJJa8h1CKRE2', 'root@root.com', 'root', 'root', 'default'),
-('loick', '$2y$10$fVKZ9/.D5twEDcZOqNLiCOnKxGwGoRNXDGHdEVGJ7UpDH6gk6S6g.', 'nosal.loick@gmail.com', 'nosal', 'loick', 'default'),
-('julien', '$2y$10$wESTa5YmkHmC6JAfhVb7zehXB3L78tLsyn5AInWqa/WT6qAXJ5RYK', 'juliennoel9@gmail.com', 'noel', 'julien', 'default'),
-('louis', '$2y$10$wSw1zOhf3pwP24eN05cDNeKJEvdnDFck7121.di5XI0oBAsZwpA36', 'louis.demange.m@gmail.com', 'demange', 'louis', 'default'),
-('gauthier', '$2y$10$rts0zZThndNbkObCSAHWheIoAiVopz2u3aDwDvIge9DMshK5WJSYe', 'gauthier.mayer5@gmail.com', 'noel', 'julien', 'default'),
-('sacha', '$2y$10$2p.64mTqjPs.FIUH9DgBZeg5OxUG3Xmr60d1YLmf.uC5UnUe0AveO', 'sacha.thommet5@orange.fr', 'noel', 'julien', 'default');
-
-
-INSERT INTO `creneau` (id, cycle, semaine, jour, heureD, heureF) VALUES
-(1, 0, 'A', 1, 8, 11);
-INSERT INTO `creneau` (cycle, semaine, jour, heureD, heureF) VALUES
-(0, 'A', 1, 14, 17),
-(0, 'A', 3, 11, 14),
-(0, 'B', 1, 8, 11),
-(0, 'B', 2, 8, 11),
-(0, 'B', 4, 12, 15),
-(0, 'C', 1, 8, 11),
-(0, 'C', 1, 9, 12),
-(0, 'C', 6, 13, 16),
-(0, 'D', 1, 8, 11),
-(0, 'D', 3, 16, 19),
-(0, 'D', 4, 8, 11);
-
-INSERT INTO `cycle` (`numero`) VALUES
-(1),
-(2),
-(3),
-(4);
-
-INSERT INTO `role` (`libelle`) VALUES
-('livreur');
-
-INSERT INTO `poste` (`id`, `creneau`, `idCompte`, `role`) VALUES
-(1, 1, null, 'caissier'),
-(2,1,null,'livreur'),
-(3,1,null,'vendeur');
-

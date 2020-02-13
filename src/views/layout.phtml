@@ -8,62 +8,62 @@
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/style.css">
     <link rel="stylesheet" href="<?= $rootUri ?>/public/css/planningStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css"/>
-    <title><?=$title?></title>
+    <title><?= $title ?></title>
 </head>
 <body>
-    <script src="<?= $rootUri ?>/public/js/jquery.slim.min.js"></script>
-    <script src="<?= $rootUri ?>/public/js/bootstrap.min.js"></script>
+<script src="<?= $rootUri ?>/public/js/jquery.slim.min.js"></script>
+<script src="<?= $rootUri ?>/public/js/bootstrap.min.js"></script>
 
-    <nav id="nav" class="navbar navbar-expand-lg navbar-dark sticky-top headfoot ">
-        <div class="container">
-            <a class="navbar-brand" href="#"></a>Grande Epicerie General</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Page 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Page 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Remerciement</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <?php if (isset($_SESSION['login'])) : ?>
-                        <li class="nav-item">
-                            <a class="nav-link logout" ">Déconnexion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ">Mon compte</a>
-                        </li>
-                    <?php else : ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="inscription">Inscription</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ">Connexion</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark sticky-top headfoot ">
+    <div class="container">
+        <a class="navbar-brand" href="#"></a>Grande Epicerie General</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $rootUri ?>">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Page 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Page 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Page 3</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
-    <div class="container mt-3">
-        <?= $content ?>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <?php if (isset($_SESSION['login'])) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link logout" ">Déconnexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ">Mon compte</a>
+                    </li>
+                <?php else : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscription">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ">Connexion</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
     </div>
-    <br>
-</body>
+</nav>
 
+<div class="container mt-3">
+    <?= $content ?>
+</div>
+<br>
+</body>
 
 <footer class="page-footer font-small mdb-color lighten-3 pt-4 headfoot ">
     <div class="container text-center text-md-left">
@@ -101,10 +101,14 @@
                 <h5 class="font-weight-bold text-uppercase mb-4">Nos Réseaux</h5>
 
                 <!-- Twitter -->
-                <a type="button"href="https://twitter.com/GEGNancy" target="_blank"><img src="<?= $rootUri ?>/public/images/twitter.png" type="image/png" height="32" width="32" style="margin-right: 10px"></a>
+                <a type="button" href="https://twitter.com/GEGNancy" target="_blank"><img
+                            src="<?= $rootUri ?>/public/images/twitter.png" type="image/png" height="32" width="32"
+                            style="margin-right: 10px"></a>
 
                 <!-- Facebook -->
-                <a type="button" href="https://www.facebook.com/GEGNancy/" target="_blank"><img src="<?= $rootUri ?>/public/images/facebook.png" type="image/png" height="32" width="32" style="margin-right: 10px"></a>
+                <a type="button" href="https://www.facebook.com/GEGNancy/" target="_blank"><img
+                            src="<?= $rootUri ?>/public/images/facebook.png" type="image/png" height="32" width="32"
+                            style="margin-right: 10px"></a>
             </div>
         </div>
     </div>
