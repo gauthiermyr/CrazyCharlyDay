@@ -18,7 +18,7 @@ des membres
 
 **[Trello](https://trello.com/b/wMfVYKxh/ccd)** - Fonctionnalités et répartitions des tâches
 
-**[Crazy Charly Day](https://cdd.nekzuris.com/)** - Site Web
+**[Crazy Charly Day](https://ccd.nekzuris.com/)** - Site Web
 
 ## Contributeurs
 **NOËL Julien** - (https://github.com/juliennoel9)
